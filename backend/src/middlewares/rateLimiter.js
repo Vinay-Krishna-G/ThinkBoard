@@ -2,8 +2,8 @@ const rateLimit = require("../config/upstash");
 
 const rateLimiter = async (req, res, next) => {
   try {
-    const success = await rateLimit.limit(req.ip); // Limit based on the client's IP address
-    if (!success) {
+    const result = await rateLimit.limit(req.ip); // Limit based on the client's IP address
+    if (!result.success) {
       return res
         .status(429)
         .json({ message: "Too many requests, please try again later." });

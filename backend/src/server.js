@@ -5,13 +5,15 @@ const dotenv = require("dotenv");
 
 dotenv.config(); // Load environment variables from .env file
 
-console.log(process.env.MONGODB_URI); // Log the MongoDB URI for debugging
 const app = express();
+const PORT = process.env.PORT || 5001;
 
 connectDB();
 
+app.use(express.json()); // Middleware to parse JSON bodies
+
 app.use("/api/notes", notesRoutes);
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+app.listen(PORT, () => {
+  console.log("Server is running on port", PORT);
 });

@@ -3,11 +3,18 @@ const notesRoutes = require("./routes/notesRoutes.js");
 const connectDB = require("./config/db.js");
 const dotenv = require("dotenv");
 const rateLimiter = require("./middlewares/rateLimiter.js");
+const cors = require("cors");
 
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
 const PORT = process.env.PORT || 5001;
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 
 app.use(express.json()); // Middleware to parse JSON bodies
 app.use(rateLimiter); // Apply rate limiting middleware

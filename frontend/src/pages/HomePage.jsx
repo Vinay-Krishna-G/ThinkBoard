@@ -5,6 +5,7 @@ import RateLimitUI from "../components/RateLimitUI";
 import toast from "react-hot-toast";
 import NoteCard from "../components/NoteCard";
 import api from "../libs/axios";
+import NotesNotFound from "../components/NotesNotFound";
 // import Note from "../../../backend/src/models/Note";
 
 const HomePage = () => {
@@ -45,10 +46,14 @@ const HomePage = () => {
           <div className="text-center text-primary py-10">Loading...</div>
         )}
 
+        {notes.length === 0 && !isRateLimited && <NotesNotFound />}
+
         {notes.length > 0 && !isRateLimited && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {notes.map((note) => {
-              return <NoteCard key={note._id} note={note} />;
+              return (
+                <NoteCard key={note._id} note={note} setNotes={setNotes} />
+              );
             })}
           </div>
         )}
